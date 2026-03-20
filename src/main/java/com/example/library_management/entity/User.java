@@ -4,7 +4,9 @@ import com.example.library_management.entity.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -15,11 +17,13 @@ import java.util.UUID;
 public class User {
     @Id
     @UuidGenerator
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(length = 36)
     private UUID id;
 
     @Column(nullable = false, unique = true, length = 50)
     @NotBlank
-    private String username;
+    private String email;
 
     @Column(nullable = false)
     @NotBlank
